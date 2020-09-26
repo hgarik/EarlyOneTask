@@ -37,9 +37,9 @@ namespace EarlyOneTask.Data
 
             modelBuilder.Entity<AccountSession>()
                 .HasData(
-                    new AccountSession { Id = 1, AccountId = 1, Token = Guid.NewGuid().ToString() },
-                    new AccountSession { Id = 2, AccountId = 2, Token = Guid.NewGuid().ToString() },
-                    new AccountSession { Id = 3, AccountId = 3, Token = Guid.NewGuid().ToString() }
+                    new AccountSession { Id = 1, AccountId = 1, Token = "e5367300-a234-4daa-b53a-b8cf693ff00d" },
+                    new AccountSession { Id = 2, AccountId = 2, Token = "01e1095d-6227-4d37-adeb-6531da4f81d8" },
+                    new AccountSession { Id = 3, AccountId = 3, Token = "497fd69a-00cb-4489-867e-17fc98451f51" }
                 );
 
             modelBuilder.Entity<Account>(entity =>

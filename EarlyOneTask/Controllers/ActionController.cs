@@ -42,9 +42,9 @@ namespace EarlyOneTask.Controllers
             if (account.RoleId != (int)Roles.Teacher)
                 throw new Exception("NoPermission");
 
-            await _repository.GiveScore(giveScoreRequest, session.Account.Id);
+            var studentScore = await _repository.GiveScore(giveScoreRequest, session.Account.Id);
 
-            return new EmptyResult();
+            return studentScore;
 
         }
         [HttpPost]
@@ -52,13 +52,13 @@ namespace EarlyOneTask.Controllers
         public async Task<ActionResult<List<StudentScore>>> scoreView([FromBody] ScoreViewRequest scoreView)
         {
             AccountSession session = await _repository.GetAccountBySessionToken(scoreView.Token);
-
-            if (session.Account.Role.Id == (int)Roles.Student)
+            var account = await _repository.GetAccountById(session.AccountId);
+            if (account.RoleId == (int)Roles.Student)
             {
                 return await _repository.GetScoresByStudentId(scoreView);
             }
 
-            if (session.Account.Role.Id == (int)Roles.Student)
+            if (account.RoleId == (int)Roles.Student)
                 return await _repository.GetScores(scoreView);
 
             throw new Exception("NoPermission");
